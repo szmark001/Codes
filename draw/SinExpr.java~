@@ -1,0 +1,47 @@
+package draw;
+
+import java.util.List;
+
+/**
+ * This class handles the sine operation.
+ * @author Zihan Zhou cs61b-fn 21804833
+ */
+public class SinExpr extends Combination {
+
+    /** The List<Expr> that stores the operands to SinExpr. */
+    private List<Expr> _operands;
+
+    /**
+     * Constructor of SinExpr which takes operands as its argument.
+     * @param operands List<Expr>
+     */
+    SinExpr(List<Expr> operands) {
+        super(operands);
+        _operands = operands;
+    }
+
+    /**
+     * Execute returns a Number c which is the sin value of the argument.
+     * @param machine Interpreter
+     * @return Value */
+    @Override
+    Value execute(Interpreter machine) {
+        if (_operands.size() != 1) {
+            System.err.println("error: Incorrect number of arguments");
+            System.exit(1);
+        }
+        double a = _operands.get(0).execute(machine).doubleValue();
+        a = a * Math.PI / 180;
+        double b = Math.sin(a);
+        return new Number(b);
+    }
+
+    /**
+     * simply overrides.
+     * @param operands List<Expr>
+     * @return Expr */
+    @Override
+    Expr create(List<Expr> operands) {
+        return new Numeral(execute(null).doubleValue());
+    }
+}

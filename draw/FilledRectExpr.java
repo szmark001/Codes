@@ -1,0 +1,43 @@
+package draw;
+
+import java.util.*;
+
+/**
+ * The class that handles the filledRectExpr.
+ * @author Ke Ma
+ */
+public class FilledRectExpr extends Expr {
+
+    /** The List that stores the starting point and the width and height of the rectangle. */
+    private List<Expr> _xywh;
+
+    /**
+     * the constructor of FilledRectExpr.
+     * @param xywh  List<Expr>
+     */
+    Filledrectexpr(List<Expr> xywh) {
+        _xywh = xywh;
+    }
+
+    /**
+     * The execution of a FilledRectExpr, which returns a filled rectangle.
+     * @param machine Interpreter
+     * @return Value
+     */
+    Value execute(Interpreter machine) {
+        double xcor = _xywh.get(0).execute(machine).doubleValue();
+        double ycor = _xywh.get(1).execute(machine).doubleValue();
+        double width = _xywh.get(2).execute(machine).doubleValue();
+        double height = _xywh.get(3).execute(machine).doubleValue();
+        return new FilledRectangle(xcor, ycor, width, height);
+    }
+
+    /**
+     * Simply overrides.
+     * @param operands
+     * @return Expr
+     */
+    Expr create(List<Expr> operands) {
+        return null;
+    }
+}

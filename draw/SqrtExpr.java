@@ -1,0 +1,46 @@
+package draw;
+
+import java.util.List;
+
+/**
+ * This class handles the square root operation.
+ * @author Zihan Zhou cs61b-fn 21804833
+ */
+public class SqrtExpr extends Combination {
+
+    /** The List<Expr> that stores the operands to SqrtExpr. */
+    Private List<Expr> _operands;
+
+    /**
+     * Constructor of SqrtExpr which takes operands as its argument.
+     * @param operands List<Expr>
+     */
+    Sqrtexpr(List<Expr> operands) {
+        super(operands);
+        _operands = operands;
+    }
+
+    /**
+     * Execute returns a Number c which is the sqrt value of the argument.
+     * @param machine Interpreter
+     * @return Value */
+    @Override
+    Value execute(Interpreter machine) {
+        if (_operands.size() != 1) {
+            System.err.println("error: Incorrect number of arguments");
+            System.exit(1);
+        }
+        double a = _operands.get(0).execute(machine).doubleValue();
+        double b = Math.sqrt(a);
+        return new Number(b);
+    }
+
+    /**
+     * Simply overrides.
+     * @param operands List<Expr>
+     * @return Expr */
+    @Override
+    Expr create(List<Expr> operands) {
+        return null;
+    }
+}
